@@ -17,9 +17,6 @@ overviewSnapshots: true
 
 https://sleek-think.ovh/enseignement
 
-Pas de panique !
-Ça va bien ce passé !
-
 Jehan-Antoine Vayssade
 
 <!--

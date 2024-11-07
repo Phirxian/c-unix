@@ -35,6 +35,47 @@ int main(int argc, const char *argv[]) {
 ---
 transition: slide-left
 ---
+
+## Commentaires C89
+
+```cpp
+/* ceci est un commentaire */
+/** ceci est une documentation / doxygen */
+/*! ceci est une information (ex: parametre optionel) */
+```
+```cpp
+/**********************
+ceci est un commentaire
+**********************/
+/*
+ * ceci est un commentaire
+ */
+
+/*/* ceci est un commentaire */
+/* /* blabla */ ceci n'est pas un commentaire */
+```
+
+## Commentaires C99 et C++
+```cpp
+//  ceci est un commentaire
+/// ceci est une documentation
+//! ceci est une information (ex: parametre optionel)
+```
+```cpp
+//
+// ceci est un commentaire
+//
+```
+
+---
+transition: slide-left
+layout: iframe
+url: http://micro-os-plus.github.io/develop/doxygen-style-guide/
+---
+
+---
+transition: slide-left
+---
 ## Directives du preprocesseur
 - Guide le preprocesseur avant la compilation
 - Examples
@@ -122,7 +163,7 @@ https://rextester.com/l/c_online_compiler_gcc
 -->
 
 ---
-transition: fade-out
+transition: slide-left
 ---
 ```cpp
 enum Days {
@@ -153,6 +194,20 @@ _start:
 section .bss
     i: resd 1            ; Reserve 4 bytes (32 bits) for unsigned int i
 ```
+
+---
+transition: fade-out
+layout: iframe-right
+url: https://en.cppreference.com/w/c/keyword
+---
+
+## Identificateurs
+
+- Le nom d'une variable commence par une lettre ou "_"
+- Est alphanumerique [a-Z + 0-9]
+- Sensible a la casse : a != A
+- Generalement "_ _" reserver au system, et compilateur
+- Mots réservés du langage
 
 ---
 transition: slide-left
