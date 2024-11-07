@@ -201,3 +201,44 @@ for(int i=0;i<MAX;i++){e[i]='A';}
 return 0;
 }
 ```
+
+---
+transition: slide-left
+---
+
+## Commentaires C89
+
+```cpp
+/* ceci est un commentaire */
+/** ceci est une documentation / doxygen */
+/*! ceci est une information (ex: parametre optionel) */
+```
+```cpp
+/**********************
+ceci est un commentaire
+**********************/
+/*
+ * ceci est un commentaire
+ */
+
+/*/* ceci est un commentaire */
+/* /* blabla */ ceci n'est pas un commentaire */
+```
+
+## Commentaires C99 et C++
+```cpp
+//  ceci est un commentaire
+/// ceci est une documentation
+//! ceci est une information (ex: parametre optionel)
+```
+```cpp
+//
+// ceci est un commentaire
+//
+```
+
+---
+transition: fade-out
+layout: iframe
+url: http://micro-os-plus.github.io/develop/doxygen-style-guide/
+---
