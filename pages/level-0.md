@@ -1,6 +1,5 @@
-# Niveau 0
-
-Base du langage C
+<h1 class="text-center" style="position: relative;top: 50%;">Niveau 0</h1>
+<p class="text-center" style="position: relative;top: 50%;">Base du langage C</p>
 
 ---
 transition: slide-left
@@ -104,7 +103,7 @@ transition: slide-left
 Types de base :
 - Taille depend de l'os et du materiel
 - char (1), short (2), int (2-4), long(4-8)
-- float(4), double(8), long double (8-16)
+- float(4), double(8), long double (8-16) -> half gpu
 - long long (8) (C99)
 - void
 
@@ -112,8 +111,8 @@ Type specifique :
 - size_t(4-8), ptrdiff_t(4-8), intptr_t(4-8), wchar_t(2-4), __m128(16)
 
 Modificateur :
-- signed, unsigned, const
-- static, register
+- signed, unsigned -> entier
+- const, static, register
 
 Enumeration
 
@@ -172,8 +171,8 @@ transition: slide-left
     printf("a * b = %d\n", a * b);
     printf("a / b = %d\n", a / b);
     printf("a %% b = %d\n", a % b);
-    printf("a++ = %d\n", a++);
-    printf("--b = %d\n", --b);
+    printf("a++ = %d\n", a++); // 10
+    printf("--b = %d\n", --b); // 4
 
     // Logical expressions
     printf("a > b: %d\n", a > b); // True = 1
@@ -201,7 +200,6 @@ transition: slide-left
     printf("p && q: %d\n", p && q);
     printf("p || q: %d\n", p || q);
     printf("!p: %d\n", !p);
-
     // Mask expression
     int a = 1, b = 2;
     printf("a & b: %d\n", a & b); // 0
@@ -209,15 +207,15 @@ transition: slide-left
     printf("a << b: %d\n", a << 1); // 2
     printf("a >> b: %d\n", b >> 1); // 1
     printf("a >> b: %d\n", a ^ b); // 3
-
+    printf("~a: %d\n", ~a); // -2
     // Assignment expressions
     int c = 15;
     printf("\nAssignment Expressions:\n");
-    printf("c += 5: %d\n", c += 5);
-    printf("c -= 3: %d\n", c -= 3);
-    printf("c *= 2: %d\n", c *= 2);
-    printf("c /= 4: %d\n", c /= 4);
-    printf("c %%= 3: %d\n", c %= 3);
+    printf("c += 5: %d\n", c += 5); // 20
+    printf("c -= 3: %d\n", c -= 3); // 17
+    printf("c *= 2: %d\n", c *= 2); // 34
+    printf("c /= 4: %d\n", c /= 4); // 8
+    printf("c %%= 3: %d\n", c %= 3); // 2
 ```
 ---
 transition: fade-out
@@ -233,28 +231,6 @@ transition: fade-out
     printf("\nCompound Expression:\n");
     printf("(a + b) * (c - (d / 2.0)) / (1 - sin(PI/4)): %f\n", result);
 ```
-
-- En realiter toutes les boucles sont coder avec des goto en assembleur
-- Role du compilateur
-
-```asm
-    xorl ebx, ebx
-.start:
-    push ebx
-    push fmt
-    call printf
-
-    addl ebx, 1
-    cmpl ebx, 5
-    jl .start
-```
-
-<!--
-- Ne pas utiliser pour l'instant
-- Globalement une mauvaise pratique
-- Permet certaines optimisation
-- Pas d'autre solution dans certaines circonstances
--->
 
 ---
 transition: slide-left
@@ -275,6 +251,9 @@ En ligne :
 - [programiz.com](https://www.programiz.com/c-programming/online-compiler/)
 - [onlinegdb.com](https://www.onlinegdb.com/online_c_compiler)
 
+Portable :
+- [w64devkit](https://github.com/skeeto/w64devkit)
+
 ---
 transition: slide-left
 ---
@@ -289,15 +268,16 @@ Makefile:
 
 CMake:
 - Ecrire un fichier CMakeLists.txt -> Generation du Makefile
-- Run `mkdir buid ; cmake .. ; make ;
-- Lnacer `clang-format` !
+- Run `mkdir buid ; cmake .\. ; make ;
+- Lancer `clang-format` ! Ou `unittest`
 
 Build automation tools:
   - Ninja, SCons, Bazel, Buck
 
 ---
-transition: slide-left
+transition: fade-out
 ---
+
 ## IDE (Environnement de Développement Intégré)
 
 Outils de développement:
@@ -318,3 +298,99 @@ Outils integrer
 - Pratique mais non-indispenssable
 - N'aide pas a la comprehenssion
 -->
+
+---
+transition: slide-left
+---
+
+## Bibliotheques standards
+
+- stdlib (la base -> C89)
+  - Pas si standard (embarqué, pc, supercalculateurs, .. microcontroler)
+  - Probleme de portabilité
+  - Tres restreint
+    - Pas de reseaux, thread, gui
+- posix (programmation system)
+  - Processus, threads, signaux, pipes
+  - Synchronisation mutex, semaphore
+  - clocks & timer
+  - system unix et windows
+
+<!--
+Cannal de discution
+-->
+
+---
+transition: slide-left
+---
+
+### STDLIB
+
+Rôle des headers les plus courantes
+- stdio.h permet la gestion des E/S (printf, scanf, ...)
+- string.h permet la gestion des chaines (strcpy, strcmp, strchr, ...)
+- stdlib.h ajoute des fonctions générales
+  - conversion (atoi, atof, ...)
+  - gestion dynamique de la mémoire (malloc, realloc, free, ...)
+  - aléatoire (rand, srand, ...)
+  - arithmétique des entiers, tri (qsort, ...)
+- math.h ajoute des fonctions mathématiques (sqrt, ...)
+- time.h permet de manipuler l’information temporelle (clock, time, ...)
+- stdarg.h gestion des arguments passés en paramètre au programme
+- errno.h gestion sommaire des erreurs
+- http://www.cplusplus.com/reference/clibrary
+- https://en.cppreference.com/w/c/header
+---
+transition: fade-out
+---
+
+### stdio.h
+
+Affichage d’information sur la console
+```cpp
+putc('\n');
+puts("Erreur "__FILE__);
+printf("La valeur de l'entier est %d\n", 1);
+printf("La valeur du floatant est %f\n", 3.14159f);
+printf("Le message est \"%s\"\n", "bidule");
+```
+Lecture d’une information au clavier
+
+```cpp
+char str[1000];
+float nombre;
+char c = getchar(stdin);
+int error = gets(str);
+int error = scanf("%f", &nombre); // Le & du 2ème argument est indispensable (adresse memoire)
+```
+
+---
+transition: slide-left
+---
+
+## Excercices
+
+<br>
+
+### 1 - Prise en main du compilateur  :
+
+<br>
+
+- Ecrire main.c
+
+```cpp
+#include <stdio.h>
+int main() { printf("Hello World !"); return 0; }
+```
+
+- Compiler (gcc), executer
+
+<br>
+
+### 2 - Ecrire une resolution partiel ax+by+c :
+
+<br>
+
+- `math.h -> sqrt`
+- `a=5 ; b=9 ; c=3 -> x1=-0.4417 x2=-1.3583`
+- `printf("une variable %f\n", a)`

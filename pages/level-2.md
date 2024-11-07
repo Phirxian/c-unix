@@ -1,6 +1,5 @@
-# Niveau 2
-
-Fonctions et types composés
+<h1 class="text-center" style="position: relative;top: 50%;">Niveau 2</h1>
+<p class="text-center" style="position: relative;top: 50%;">Fonctions et types composés</p>
 
 ---
 transition: slide-left

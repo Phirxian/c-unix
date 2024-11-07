@@ -1,6 +1,5 @@
-# Niveau 1
-
-Flux de contrôle et types de données
+<h1 class="text-center" style="position: relative;top: 50%;">Niveau 1</h1>
+<p class="text-center" style="position: relative;top: 50%;">Flux de contrôle et types de données</p>
 
 ---
 transition: slide-left
@@ -107,3 +106,25 @@ start:
         goto start;
 }
 ```
+
+- En realiter toutes les boucles sont coder avec des goto en assembleur
+- Role du compilateur
+
+```asm
+    xorl ebx, ebx
+.start:
+    push ebx
+    push fmt
+    call printf
+
+    addl ebx, 1
+    cmpl ebx, 5
+    jl .start
+```
+
+<!--
+- Ne pas utiliser pour l'instant
+- Globalement une mauvaise pratique
+- Permet certaines optimisation
+- Pas d'autre solution dans certaines circonstances
+-->

@@ -44,7 +44,7 @@ image: /snippets/bjarne-straustroup.jpg
   - 1985 (The C++ Programming Language)
   - 1998 (ISO C++98)
   - ...
-  - 1998 (ISO C++23)
+  - 2023 (ISO C++23)
   - Développement parallele à C
   - Syntaxe de base proche, comportement !=
 - Paradigme : Java, Rust, Python, Go, C#, ...
