@@ -2,8 +2,8 @@
 # Programme
 
 - Niveau -1 : Présentation
-- Niveau 0 : Base du langage C
-- Niveau 1 : Flux de contrôle et types de données
+- Niveau 0 : Base du langage C et types de données
+- Niveau 1 : Flux de contrôle : conditions et boucles
 - Niveau 2 : Fonctions et types composés
 - Niveau 3 : Pointeurs et gestion de la mémoire
 - Niveau 4 : Performance avancées du langage C

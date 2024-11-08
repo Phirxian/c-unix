@@ -32,6 +32,11 @@ int main(int argc, const char *argv[]) {
 }
 ```
 
+
+<!--
+AST -> Abre Syntaxique -> Token / Type
+-->
+
 ---
 transition: slide-left
 ---
@@ -88,6 +93,31 @@ https://rextester.com/l/c_online_compiler_gcc
 ---
 transition: slide-left
 ---
+## Instructions
+- Enssemble de token terminé par un `;`
+- Opérateur pour évaluer plusieurs expressions `,`
+- Les instructions sont presque _toujours_ déclarées dans des fonctions
+
+```cpp
+int i; // 1 instruction
+int j = 0; // 1 instruction (2 asm), 1 block non-secable
+i += 42; // 1 instruction
+j = 5, p = 8; // 1 instruction (2 asm), 1 block non-secable
+j = 5; p = 8; // 2 instructions
+
+// un block (non-secable)
+{
+    int k;
+    k = (i+j)/2;
+}
+
+// instruction vide (passtrough)
+;
+```
+
+---
+transition: slide-left
+---
 ## Declaration
 - <span style="color: green">Variables</span>
 - Fonction -> signature
@@ -95,34 +125,89 @@ transition: slide-left
   - structure -> groupe de donnes
   - unions -> donnees paratagees
   - enums -> label
+- Porté
+  - locale = dans une fonction
+    - $<C99$ declaration des variables en premiers
+    - pas d'initialisation automatique
+  - global = en dehors d'une fonction (ou d'un block)
+    - initialisation avant l'initialisation du program `_start`
+    - copie de `section .data`
 
 ---
 transition: slide-left
 ---
 
-Types de base :
-- Taille depend de l'os et du materiel
-- char (1), short (2), int (2-4), long(4-8)
-- float(4), double(8), long double (8-16) -> half gpu
-- long long (8) (C99)
-- void
-
-Type specifique :
-- size_t(4-8), ptrdiff_t(4-8), intptr_t(4-8), wchar_t(2-4), __m128(16)
-
-Modificateur :
-- signed, unsigned -> entier
-- const, static, register
-
-Enumeration
-
+- Types de base :
+  - Taille depend de l'os et du materiel
+  - `char` (1), `short` (2), `int` (2-4), `long` (4-8)
+  - `float`(4), `double`(8), `long double` (8-16)
+    - `mini` (1) `half` (2) .. `octuple` (32)
+    - https://en.wikipedia.org/wiki/IEEE_754
+    - Gestion des exceptions (nan, +inf)
+  - long long (8) (C99)
+  - void
+- Type specifique :
+  - size_t(4-8), ptrdiff_t(4-8), intptr_t(4-8), wchar_t(2-4), __m128(16)
+- Verification de taille : `sizeof(char) == 1`
+- Modificateur :
+  - signed, unsigned -> entier
+  - const, static, register, volatile
+- Enumeration
 
 <!--
 https://rextester.com/l/c_online_compiler_gcc
+- `char` type signed/unsigned depend du compilateur
+- volatile is a hint to the implementation to avoid aggressive optimization involving the object
+- Precision fini -> approximation de R
+- Erreur d'arrondi
+- Garantit que certains types de données auront toujours le même format
+- Garantit que les calculs effectués sur un type de donnée donneront toujours le même résultat.
+- Gère les cas exceptionnels, comme les infinis, les NaN (pour Not a Number – ex: division 0/0), etc.
 -->
 
 ---
 transition: slide-left
+---
+### Valeurs min-max
+
+<div style="display: flex">
+<img src="/snippets/signed-unsigned.jpeg" width="50%">
+<img src="/snippets/signed-unsigned-min-max.jpeg" width="50%">
+</div>
+
+---
+layout: iframe
+url: https://en.cppreference.com/w/c/types/limits
+---
+
+---
+transition: slide-left
+---
+### Attention a l'architecture !
+
+<img src="/snippets/endian.png" width="50%" style="position: relative; left:20%">
+
+```cpp
+#if __BYTE_ORDER__ == __ORDER_LITTLE_ENDIAN__
+...
+#elif __BYTE_ORDER__ == __ORDER_BIG_ENDIAN__
+...
+#else
+// __ORDER_PDP_ENDIAN__
+#endif
+```
+```cpp
+if(*(char *)(int[]){1}) {
+    /* little endian code */
+} else {
+    /* big endian code */
+}
+```
+
+
+---
+transition: slide-left
+layout: two-cols
 ---
 ```cpp
 enum Days {
@@ -134,9 +219,10 @@ typedef unsigned long long int uint64;
 ```
 
 ```cpp
+const char a = 'A'; // 97
 const float PI = 3.14159f;
 unsigned int i;
-i = 15;
+i = 15u;
 ```
 
 ```asm
@@ -154,19 +240,66 @@ section .bss
     i: resd 1            ; Reserve 4 bytes (32 bits) for unsigned int i
 ```
 
+::right::
+
+- `'\n'` newline
+- `'\r'` tabulation
+- `'\b'` backspace
+- `'\''` single quote
+- `'\"'` double quote
+- `'\?'` question mark
+- `'\r'` carriage return
+- `'\a'` alert (bell - buzzer)
+- `'\\'` backslach
+- `'a' = 97 ; 'a'+1 = 'b' = 98`
+- `'0' = 48 ; '0'+1 = '1' = 49`
+- `"Le pouvoir réside là où on se l'imagine. Même un petit homme peut projeter une grande ombre."`
+- `L"権力は私たちが想像するところに宿る。"`
+
+<!--
+windows `\r\n`
+-->
+
 ---
 transition: fade-out
-layout: iframe-right
-url: https://en.cppreference.com/w/c/keyword
+layout: two-cols 
 ---
 
 ## Identificateurs
 
-- Le nom d'une variable commence par une lettre ou "_"
+- Identificateur commence par une lettre ou "_"
+  - variables
+  - fonctions
+  - macros
 - Est alphanumerique [a-Z + 0-9]
-- Sensible a la casse : a != A
-- Generalement "_ _" reserver au system, et compilateur
+- Sensible a la casse :
+  - a != A
+  - sqrt != SQRT
+- "_ _" : system/compilateur
 - Mots réservés du langage
+
+::right::
+### Notation
+
+- decimal : 12345678
+- octale : `0407`
+- hexadecimal : `0x4545FF`
+- postfixage:
+  - double : `0.5` / float : `0.5f`
+  - unsigned : `65u`
+  - long : `65l` / long long `65ll`
+  - combinaison : `65ul`
+
+
+<!--
+identificateur = variable
+-->
+
+---
+transition: fade-out
+layout: iframe
+url: https://en.cppreference.com/w/c/keyword
+---
 
 ---
 transition: slide-left
@@ -207,7 +340,7 @@ transition: slide-left
     typedef unsigned int bool;
     #define true 1
     #define false 0
-
+    // C99 -> stdbool.h
     // Logical expressions
     bool p = true, q = false;
     printf("\nLogical Expressions:\n");
@@ -408,3 +541,34 @@ int main() { printf("Hello World !"); return 0; }
 - `math.h -> sqrt`
 - `a=5 ; b=9 ; c=3 -> x1=-0.4417 x2=-1.3583`
 - `printf("une variable %f\n", a)`
+
+---
+transition: slide-left
+---
+
+## Correction
+
+```cpp
+#include <stdio.h>
+#include <math.h>
+
+int main()
+{
+    float a = 5, b = 9, c = 3;
+
+    printf("Les valeurs sont :\n");
+    printf("a = %f\n", a);
+    printf("b = %f\n", b);
+    printf("c = %f\n", c);
+
+    float discriminant = b * b - 4 * a * c;
+    float x1 = (-b + sqrt(discriminant)) / (2 * a);
+    float x2 = (-b - sqrt(discriminant)) / (2 * a);
+
+    printf("L'équation a deux solutions réelles distinctes :\n");
+    printf("x1 = %.4f\n", x1);
+    printf("x2 = %.4f\n", x2);
+        
+    return 0;
+}
+```

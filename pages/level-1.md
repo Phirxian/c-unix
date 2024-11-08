@@ -1,5 +1,5 @@
 <h1 class="text-center" style="position: relative;top: 50%;">Niveau 1</h1>
-<p class="text-center" style="position: relative;top: 50%;">Flux de contrôle et types de données</p>
+<p class="text-center" style="position: relative;top: 50%;">Flux de contrôle : conditions et boucles</p>
 
 ---
 transition: slide-left
