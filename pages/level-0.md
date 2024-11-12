@@ -144,8 +144,8 @@ transition: slide-left
     - `mini` (1) `half` (2) .. `octuple` (32)
     - https://en.wikipedia.org/wiki/IEEE_754
     - Gestion des exceptions (nan, +inf)
-  - long long (8) (C99)
-  - void
+  - long long (8) (C99 non standard)
+  - void -> return, param, pointer
 - Type specifique :
   - size_t(4-8), ptrdiff_t(4-8), intptr_t(4-8), wchar_t(2-4), __m128(16)
 - Verification de taille : `sizeof(char) == 1`
@@ -157,6 +157,7 @@ transition: slide-left
 <!--
 https://rextester.com/l/c_online_compiler_gcc
 - `char` type signed/unsigned depend du compilateur
+- float sign + 8 exposant + 23 mantisse -> 3.4 x 10^38
 - volatile is a hint to the implementation to avoid aggressive optimization involving the object
 - Precision fini -> approximation de R
 - Erreur d'arrondi
@@ -328,9 +329,11 @@ transition: slide-left
     printf("a <= b: %d\n", a <= b);
     printf("a == b: %d\n", a == b);
     printf("a != b: %d\n", a != b);
-
-    
 ```
+
+<!--
+opérateur compatible avec les pointeurs
+-->
 
 ---
 transition: slide-left
@@ -378,6 +381,11 @@ transition: fade-out
     printf("\nCompound Expression:\n");
     printf("(a + b) * (c - (d / 2.0)) / (1 - sin(PI/4)): %f\n", result);
 ```
+
+---
+transition: slide-left
+---
+<img src="/snippets/prio.png" width="50%"/>
 
 ---
 transition: slide-left
@@ -510,6 +518,11 @@ char c = getchar(stdin);
 int error = gets(str);
 int error = scanf("%f", &nombre); // Le & du 2ème argument est indispensable (adresse memoire)
 ```
+
+<!--
+%u
+%lu
+-->
 
 ---
 transition: slide-left

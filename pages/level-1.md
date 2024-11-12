@@ -8,6 +8,7 @@ layout: default
 ## Instructions
 
 - Condition (if, else, switch)
+- Toute condition différent de 0 est vrai
 
 ```cpp
     int age = 20;
@@ -18,7 +19,6 @@ layout: default
     else
         printf("You are a minor.\n");
 
-    
     int day = 3;
     switch (day) {
         case 1:
@@ -34,6 +34,105 @@ layout: default
             printf("Other day\n");
     }
 
+```
+
+---
+transition: slide-left
+layout: default
+---
+
+```cpp
+int error = unefonction();
+if (error) {
+  printf("C'est ballo'");
+}
+```
+
+```cpp
+int error = unefonction();
+if (error != 0)
+    printf("C'est ballo'");
+```
+
+```cpp
+int a = 0;
+int b = 2;
+
+if (a = b)
+    printf("Magie magie");
+    
+if (a == b) {
+    printf("Oups");
+}
+```
+
+<!-- 
+falle ssl
+-->
+
+---
+transition: slide-left
+layout: default
+---
+
+```cpp
+if (condition) {
+    if(unautre)
+        ;
+    else
+        ;
+}
+else {
+}
+
+
+if (condition)
+    ;
+else if(unautre)
+    ;
+else
+    ;
+```
+
+---
+transition: slide-left
+---
+
+```cpp
+int main() {
+  double a, b, c;
+  double discriminant, x1, x2;
+
+  printf("Entrez les coefficients a, b et c de l'équation ax² + bx + c = 0 :\n");
+  scanf("%lf %lf %lf", &a, &b, &c);
+
+  if (fabs(a) < EPSILON) {
+    printf("Ce n'est pas une équation du second degré (a ≈ 0).\n");
+    return 1;
+  }
+
+  discriminant = b * b - 4 * a * c;
+
+  if (discriminant > EPSILON) {
+    x1 = (-b + sqrt(discriminant)) / (2 * a);
+    x2 = (-b - sqrt(discriminant)) / (2 * a);
+    printf("L'équation a deux solutions réelles distinctes :\n");
+    printf("x1 = %.4f\n", x1);
+    printf("x2 = %.4f\n", x2);
+  } else if (fabs(discriminant) < EPSILON) {
+    x1 = -b / (2 * a);
+    printf("L'équation a une solution réelle double :\n");
+    printf("x = %.4f\n", x1);
+  } else {
+    double realPart = -b / (2 * a);
+    double imagPart = sqrt(-discriminant) / (2 * a);
+    printf("L'équation a deux solutions complexes conjuguées :\n");
+    printf("x1 = %.4f + %.4fi\n", realPart, imagPart);
+    printf("x2 = %.4f - %.4fi\n", realPart, imagPart);
+  }
+
+  return 0;
+}
 ```
 
 ---

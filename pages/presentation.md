@@ -89,6 +89,7 @@ hideInToc: true
   - Unreal Engine, Cry Engine, Godot, Unity, Opengl, DirectX, ...
   - GTK, Qt, Firefox, Chrome, ...
   - 90% de l'informatique est basé en C/C++ (Java, Python, C#, ...)
+  - 80% serveur unix
 
 ---
 transition: fade-out
