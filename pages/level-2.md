@@ -163,7 +163,7 @@ transition: fade-out
 - Chaque appel nécéssite de recopier les valeurs d'appel
 - Toute fonction récursive peut-être transformé en boucle+struct
 - Une fonction récursive doit éfectuer un test de terminaison
-- La profondeur d'appel est **limité** (stackoverflow)
+- La profondeur d'appel est **limité** (stackoverflow unless -fstack-usage (lourd - performant))
 
 ```cpp
 long long int fact(long long int n) {
@@ -176,6 +176,19 @@ fact(18); // = beaucoup
 fact(30); // négatif
 fact(99999); // stackoverflow - segfault
 ```
+
+- https://steflan-security.com/complete-guide-to-stack-buffer-overflow-oscp/
+- http://www.herikstad.net/2019/03/prevent-and-mitigate-stack-overflow.html
+
+---
+transition: fade-out
+layout: center
+---
+
+<img src="/snippets/stack.png" width="100%"/>
+virtual address space != ram -> memmap:os
+
+https://stackoverflow.com/questions/32418750/stack-and-heap-locations-in-ram
 
 ---
 transition: fade-out
