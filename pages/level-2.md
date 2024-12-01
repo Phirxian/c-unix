@@ -126,6 +126,7 @@ inline float pow(float i) { return i*i; }
 // utilisation classique
 pow(2,2); // comme "instruction" -> résultat perdu
 float delta = pow(b) - 4 * a * c; // utilise la valeur retourner
+float beta = pow(++i, i); //! ordre d'éxécution indéterminé (compilateur)
 ```
 
 ---
