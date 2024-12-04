@@ -42,6 +42,7 @@ transition: slide-left
 ---
 ## Directives du preprocesseur
 - Guide le preprocesseur avant la compilation
+- Comme un chef cuisinier qui prépare les ingrédients avant de cuisiner !
 - Examples
   - #include -> ajoute le contenue d'un autre fichier
   - #define / #undef -> Defini ou supprime une macros
